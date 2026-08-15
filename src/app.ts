@@ -1,11 +1,16 @@
 import express, { Request, Response } from "express";
 import initDB from "./config/db";
+import authRoutes from "./modules/auth/auth.routes";
+
 
 
 const app = express();
 // parser
 app.use(express.json());
 // app.use(express.urlencoded());
+
+
+app.use("/api/v1/auth", authRoutes);
 
 // initializing DB
 initDB();

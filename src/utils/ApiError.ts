@@ -1,4 +1,7 @@
 export class ApiError extends Error {
+  static internal(arg0: string) {
+      throw new ApiError(500, arg0);
+  }
   public statusCode: number;
 
   constructor(statusCode: number, message: string) {

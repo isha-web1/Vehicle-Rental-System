@@ -14,11 +14,11 @@ const initDB = async () => {
     email VARCHAR(150) UNIQUE NOT NULL CHECK (email = LOWER(email)),
     password TEXT NOT NULL CHECK (LENGTH(password) >= 6),
     phone VARCHAR(15) NOT NULL,
-    role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer'))
+    role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer')),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   )
 `);
-
-  
 };
 
 export default initDB;

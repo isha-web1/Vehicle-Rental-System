@@ -11,6 +11,22 @@ export interface User {
   updated_at: Date;
 }
 
+
+
+export type BookingStatus = "active" | "cancelled" | "returned";
+
+export interface Booking {
+  id: number;
+  customer_id: number;
+  vehicle_id: number;
+  rent_start_date: Date;
+  rent_end_date: Date;
+  total_price: number;
+  status: BookingStatus;
+  created_at: Date;
+  updated_at: Date;
+}
+
 // Safe user shape returned to clients (never leaks password hash)
 export type PublicUser = Omit<User, "password">;
 

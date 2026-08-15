@@ -3,6 +3,7 @@ import initDB from "./config/db";
 import authRoutes from "./modules/auth/auth.routes";
 import vehicleRoutes from "./modules/vehicles/vehicles.routes";
 import userRoutes from "./modules/user/users.routes";
+import bookingRoutes from "./modules/bookings/bookings.routes";
 
 
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/vehicles", vehicleRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 // initializing DB
 initDB();

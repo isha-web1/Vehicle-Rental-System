@@ -21,3 +21,26 @@ export async function signupController(
     next(err);
   }
 }
+
+
+
+
+// signin controller
+export async function signinController(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const input = validateSignin(req.body);
+    const { user, token } = await authService.signin(input);
+
+    res.status(200).json({
+      success: true,
+      message: "Signed in successfully",
+      data: { user, token },
+    });
+  } catch (err) {
+    next(err);
+  }
+}

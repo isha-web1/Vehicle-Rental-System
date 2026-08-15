@@ -39,3 +39,34 @@ export async function signup(input: SignupInput): Promise<{
 
   return { user: toPublicUser(user), token };
 }
+
+
+
+// signin function
+export async function signin(input: SigninInput): Promise<{
+  user: PublicUser;
+  token: string;
+}> {
+  const result = await pool.query<User>(
+    "SELECT * FROM users WHERE email = $1",
+    [input.email]
+  );
+
+  const user = result.rows[0];
+
+  // Same error for "no user" and "wrong password" — avoids leaking
+  // which emails are registered.
+  if (!user) {
+    throw ApiError.unauthorized("Invalid email or password");
+  }
+
+  const isPasswordValid = await comparePassword(input.password, user.password);
+  if (!isPasswordValid) {
+    throw ApiError.unauthorized("Invalid email or password");
+  }
+
+  const token = signToken({ id: user.id, email: user.email, role: user.role });
+
+  return { user: toPublicUser(user), token };
+}
+
